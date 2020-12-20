@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--    /*!-->
+<!--    * BMI-Calculator-->
+<!--    * Version - 1.0.0-->
+<!--    * Licensed under the MIT license - http://opensource.org/licenses/MIT-->
+<!--    *-->
+<!--    * Copyright (c) 2020 Michael Horner-->
+<!--    */-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>BMI-Rechner</title>
+
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="img/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="img/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#0000FF">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800" rel="stylesheet"> 
+    
+    <!-- custom CSS -->
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style>
+
+        body {
+            min-height: 100vh;
+            margin: 0 0;
+            padding: 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins';
+            font-weight: 400;
+            color: #111;
+        }
+
+        /* general classes */
+
+        .input-hidden {
+            position: absolute;
+            left: -9999px;
+        }
+
+        input[type=radio]:checked + label>img {
+            border: 1px solid #fff;
+            box-shadow: 0 0 3px 3px #090;
+        }
+
+        /* Stuff after this is only to make things more pretty */
+        input[type=radio] + label>img {
+
+            width: 40px;
+            height: 40px;
+            transition: 500ms all;
+            margin-right: 8px;
+            align-self: center;
+        }
+
+        /*input[type=radio]:checked + label>img {*/
+        /*    transform:*/
+        /*            rotateZ(-10deg)*/
+        /*            rotateX(10deg);*/
+        /*}*/
+
+        html {
+            background-color: #fff;
+            background-size: 100% 1.2em;
+            background-image:
+                    linear-gradient(
+                            90deg,
+                            transparent 79px,
+                            #abced4 79px,
+                            #abced4 81px,
+                            transparent 81px
+                    ),
+                    linear-gradient(
+                            #eee .1em,
+                            transparent .1em
+                    );
+        }
+        .gradient-green {
+            background: #A1FFCE;  /* fallback for old browsers *///
+            background: -webkit-linear-gradient(to right, #F3DB00, #FF8033);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #F3DB00, #5fff33); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        .gradient-orange {
+            background: #A1FFCE;  /* fallback for old browsers *///
+        background: -webkit-linear-gradient(to right, #F3DB00, #FF8033);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #F3DB00, #ff8033); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+
+        [v-cloak] {display: none !important;}
+
+        /* background */
+        #background {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+            background: -webkit-linear-gradient(to right, rgba(69,104,220,0.3), rgba(176,106,179,0.3));  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, rgba(69,104,220,0.3), rgba(176,106,179,0.3)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        #background > svg {
+            height: 100vh;
+            position: absolute;
+            right: 0;
+        }
+
+        /* app window */
+        #app {
+            position: relative;
+            z-index: 99;
+            max-width: 400px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.13), 0 3px 6px rgba(0,0,0,0.13);
+            border-radius: 8px;
+        }
+        #app > .container {
+            padding-top: 50px;
+            padding-bottom: 0px;
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 8px 8px 0px 0px;
+        }
+        #app .row {
+            padding-left: 25px;
+            padding-right: 25px;
+            text-align: center;
+        }
+
+        /* title row */
+        #row-title h1 {
+            font-weight: 300;
+        }
+        #row-title hr {
+            border: 1px solid #0000FF;
+            margin-top: 0rem;
+            margin-bottom: 0.75rem;
+        }
+        #row-title h4 {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* input row */
+
+        #row-input .form-group {
+            border-radius: 999px;
+            box-shadow: 0 0px 20px rgba(0,0,0,0.05), 0 0px 20px rgba(0,0,0,0.05);
+        }
+        #row-input input {
+            border: none;
+            border-right: 1px solid rgba(206,212,218,0.3);
+            border-left: 1px solid rgba(206,212,218,0.3);
+        }
+        #row-input .input-group-prepend .input-group-text {
+            width: 100px;
+            background-color: white;
+            border-radius: 999px 0 0 999px;
+            padding-left: 23px;
+            border: none;
+            font-size: 13px;
+        }
+        #row-input select {
+            border-radius: 0 999px 999px 0;
+            width: 100px;
+            border: none;
+        }
+
+        /* result panel */
+        #row-result {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border-radius: 0 0 8px 8px;
+            color: white;
+            opacity: 0.8;
+            margin: 0 0;
+        }
+        #row-result .col:last-child {
+            flex-grow: 0;
+            font-size: 2.3em;
+        }
+        #row-result .title {
+            font-weight: 500;
+            font-size: 1.3rem;
+        }
+
+        /* mobile */
+        @media all and (max-width: 575.99px) {
+
+            /* removing flex from body (moves #app to top */
+            body {
+                display: block;
+            }
+
+            /*  removing border radius & shadow */
+            #app {
+                border-radius: 0;
+                box-shadow: none;
+            }
+            #app > .container {
+                border-radius: 0;
+            }
+            #row-result {
+                border-radius: 0;
+
+            }
+
+            /* removing extra padding from rows */
+            #app .row {
+                padding-left: 0px;
+
+            }
+
+            /* adding padding back for results row */
+            #row-result .col {
+                padding-left: 0px;
+                padding-right: 0px;
+
+            }
+
+            /* making app window flex */
+            #app {
+                min-height: 60vh;
+                display: flex;
+                flex-direction: column;
+            }
+            #app > * {
+                flex: 1;
+            }
+            #app > .container {
+                display: flex;
+                flex-direction: column;
+            }
+            #row-title {
+                flex: 1;
+            }
+            #row-input {
+                flex: 1;
+            }
+
+            /* flat background */
+            #background svg {
+                display: none;
+            }
+            #background {
+                background: #AAA8E2;
+            }
+
+        }
+
+
+
+
+        .animated {
+            -webkit-animation-duration: 1.3s;
+            animation-duration: 1.3s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        .animated.infinite {
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+        }
+
+        @-webkit-keyframes fadeInUp {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(0, 10%, 0);
+                transform: translate3d(0, 10%, 0);
+            }
+
+            to {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(0, 10%, 0);
+                transform: translate3d(0, 10%, 0);
+            }
+
+            to {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        .fadeInUp {
+            -webkit-animation-name: fadeInUp;
+            animation-name: fadeInUp;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <!-- app window -->
+    <div id="app" class="animated fadeInUp" v-cloak>
+        <div class="container">
+
+            <!-- title row -->
+
+
+
+            <br>
+
+
+
+
+
+            <!-- input row -->
+            <div id="row-input" class="row">
+
+
+                <br>
+                <br>
+                    <br>
+
+
+
+                <div class="col">
+
+                    <div class="form-group">
+                        <h3>BMI-Rechner</h3>
+                        <br>
+                        <b-input-group prepend="Geschlecht">
+
+
+                        <input
+                                type="radio" name="emotion"
+                                id="male" value="male" onclick="changeValue('male')
+                                " class="input-hidden" />
+                        <label for="male">
+                            <img id="male_img"
+                                    src="https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_1.png">
+                        </label>
+
+                        <input
+                                type="radio" name="emotion"
+                                id="female"  value="female" class="input-hidden" onclick="changeValue('female')" />
+                        <label for="female">
+                            <img id="female_img"
+                                    src="https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_1.png">
+                        </label>
+                            <b-input-group prepend="Alter">
+                                <b-form-input  v-model.number="age" type="number" min=0 step="any" size="lg"></b-form-input>
+
+
+                            </b-input-group>
+                        </b-input-group>
+                            <b-input-group prepend="Größe">
+                                <b-form-input v-if="heightSelected !== 'us'" v-model.number="height" type="number" min=0 step="any" size="lg"></b-form-input>
+
+                                <b-input-group-append>
+                                    <div>
+                                        <b-form-select v-model="heightSelected" :options="heightOptions" size="lg">
+                                        <div>Selected: <strong>{{ heightSelected }}</strong></div>
+                                    </div>
+                                </b-input-group-append>
+                            </b-input-group>
+                        </div>
+
+                        <div class="form-group">
+                            <b-input-group prepend="Gewicht">
+                                <b-form-input v-if="weightSelected == 'kg'" v-model.number="weight" type="number" min=0 step="any" size="lg"></b-form-input>
+
+                                <b-input-group-append>
+                                    <div>
+                                        <b-form-select v-model="weightSelected" :options="weightOptions" size="lg">
+                                            <div>Selected: <strong>{{ weightSelected }}</strong></div>
+                                    </div>
+                                </b-input-group-append>
+                            </b-input-group>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- results row -->
+        <div id="row-result" class="row gradient-green">
+            <div class="col">
+                <span class="title">
+                    Dein BMI ist:
+                </span><br>
+                <span class="group">
+                    {{ weightGroup }}
+                </span>
+            </div>
+            <div class="col bmi" >
+                <div id='bmiColor' style="color: white">{{ bmi }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                weight: 75,
+                weight_lb: 0,
+                age:30,
+                gender:'male',
+                weightSelected: 'kg',
+                weightOptions: [
+                    { value: 'kg', text: 'kg' },
+
+                ],
+                height: 180,
+                height_ft: 0,
+                height_inch: 0,
+                heightSelected: 'cm',
+                heightOptions: [
+                    { value: 'cm', text: 'cm' },
+
+                ],
+
+            },
+            computed: {
+                bmi() {
+                    return round(calculateBMI(this.weight, this.height,this.age, this.gender), 1);
+                },
+                weightGroup() {
+
+                        return getWeightGroup(this.bmi);
+
+                      ;
+
+
+                }
+            },
+            watch: {
+                weightSelected(val) {
+                    if (val == 'lb') {
+                        this.weight_lb = round(kgToLb(this.weight), 1);
+                    }
+                },
+                weight_lb(val) {
+                    this.weight = round(lbToKg(this.weight_lb), 1);
+                },
+                heightSelected(val) {
+                    if (val == 'cm') {
+                        this.height = round(imperialToCm(this.height_ft, this.height_inch), 0);
+                    } else if (val == 'us') {
+                        this.updateImperial(this.height);
+                    }
+                },
+                height_ft(val) {
+                    this.height = round(imperialToCm(val, this.height_inch), 0);
+                },
+                height_inch(val) {
+                    this.height = round(imperialToCm(this.height_ft, val), 0);
+                }
+            },
+            methods: {
+                updateImperial(cm) {
+                    this.height_ft = cmToImperial(cm).feet;
+                    this.height_inch = cmToImperial(cm).inches;
+                }
+            }
+        });
+
+        // easy round function
+        function round(value, precision) {
+            return Number(Math.round(value+'e'+precision)+'e-'+precision);
+        }
+        
+        // weight conversion functions
+        function lbToKg(lb) {
+            return lb * 0.45359237;
+        }
+        function kgToLb(kg) {
+            return kg * 2.20462262185;
+        }
+        
+        // length conversion functions
+        function imperialToCm(feet, inches) {
+            var cm = feet * 30.48; // ft to cm
+            cm += inches * 2.54; // inch to cm
+            return cm;
+        }
+        function cmToImperial(cm) {
+            var realFeet = ((cm*0.393700) / 12);
+            var feet = Math.floor(realFeet);
+            var inches = Math.round((realFeet - feet) * 12);
+            return {
+                feet: feet,
+                inches: inches
+            }
+        }
+        
+        // BMI functions
+        function calculateBMI(kg, cm,age, gender) {
+            var m = cm / 100;
+            if (kg > 0 && m > 0) {
+                var tempBmi = kg / Math.pow(m, 2);
+                if(gender ==='female')
+                {
+                    tempBmi = tempBmi -1;
+                }
+                if(age > 18)
+                {
+                    if(age > 18 && age < 25)
+                    {
+
+                    }
+                    else if(age > 24 && age < 35)
+                    {
+                        tempBmi = tempBmi +1;
+                    }
+                    else if(age > 34 && age < 45)
+                    {
+                        tempBmi = tempBmi +2;
+                    }
+                    else if(age > 44 && age < 55)
+                    {
+                        tempBmi = tempBmi +3;
+                    }
+                    else if(age > 54 && age < 65)
+                    {
+                        tempBmi = tempBmi +4;
+                    }
+                    else{
+                        tempBmi = tempBmi +5;
+                    }
+                }
+                return tempBmi;
+            } else {
+                return 0;
+            }
+        }
+        function getWeightGroup(bmi) {
+
+
+            if (bmi == 0) {
+                return "";
+            } else if (bmi < 15) {
+                // document.getElementById("bmiColor").style.color = "red";
+                return "Extremes Untergewicht";
+            } else if (bmi >= 15 && bmi < 16) {
+               // document.getElementById("bmiColor").style.color = "tomato";
+                return "Starkes Untergewicht";
+            } else if (bmi >= 16 && bmi < 18.5) {
+                //document.getElementById("bmiColor").style.color = "yellow";
+                $('#row-result').removeClass('gradient-green').addClass('gradient-orange');
+                return "Untergewicht";
+            } else if (bmi >= 18.5 && bmi < 25) {
+               // document.getElementById("bmiColor").style.color = "green";
+                $('#row-result').removeClass('gradient-orange').addClass('gradient-green');
+                return "Gesundes Gewicht";
+            } else if (bmi >= 25 && v < 30) {
+                //document.getElementById("bmiColor").style.color = "yellow";
+                $('#row-result').removeClass('gradient-green').addClass('gradient-orange');
+                return "Leichtes Übergewicht";
+            } else if (bmi >= 30 && bmi < 35) {
+                //row-result
+
+                return "Übergewicht";
+            } else if (bmi >= 35 && bmi < 40) {
+                //document.getElementById("bmiColor").style.color = "red";
+                return "Starkes Übergewicht";
+            } else if (bmi > 40) {
+                //document.getElementById("bmiColor").style.color = "red";
+                return "Sehr starkes Übergewicht";
+            }
+        }
+
+
+    </script>
+<script>
+    function changeValue(params){
+       if(params === 'male'){
+           this.gender = 'male';
+        $('#male_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_selected.png');
+           $('#female_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_1.png');
+       }
+       else{
+           this.gender = 'female';
+           $('#female_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_selected.png');
+           $('#male_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_1.png');
+       }
+    }
+
+</script>
+
+</body>
+</html>
