@@ -346,7 +346,7 @@
 
                 <div class="col">
 
-                    <div class="form-group">
+
                         <h3>BMI-Rechner</h3>
                         <br>
                         <b-input-group prepend="Geschlecht">
@@ -368,11 +368,14 @@
                             <img id="female_img"
                                     src="https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_1.png">
                         </label>
+
                             <b-input-group prepend="Alter">
                                 <b-form-input  v-model.number="age" type="number" min=0 step="any" size="lg"></b-form-input>
 
 
                             </b-input-group>
+
+
                         </b-input-group>
                             <b-input-group prepend="Größe">
                                 <b-form-input v-if="heightSelected !== 'us'" v-model.number="height" type="number" min=0 step="any" size="lg"></b-form-input>
@@ -384,9 +387,9 @@
                                     </div>
                                 </b-input-group-append>
                             </b-input-group>
-                        </div>
 
-                        <div class="form-group">
+
+
                             <b-input-group prepend="Gewicht">
                                 <b-form-input v-if="weightSelected == 'kg'" v-model.number="weight" type="number" min=0 step="any" size="lg"></b-form-input>
 
@@ -397,7 +400,7 @@
                                     </div>
                                 </b-input-group-append>
                             </b-input-group>
-                        </div>
+
                     </form>
                 </div>
             </div>
@@ -521,9 +524,9 @@
         
         // BMI functions
         function calculateBMI(kg, cm,age, gender) {
-            var m = cm / 100;
+            let m = cm / 100;
             if (kg > 0 && m > 0) {
-                var tempBmi = kg / Math.pow(m, 2);
+                let tempBmi = kg / Math.pow(m, 2);
                 if(gender ==='female')
                 {
                     tempBmi = tempBmi -1;
@@ -578,7 +581,7 @@
                // document.getElementById("bmiColor").style.color = "green";
                 $('#row-result').removeClass('gradient-orange').addClass('gradient-green');
                 return "Gesundes Gewicht";
-            } else if (bmi >= 25 && v < 30) {
+            } else if (bmi >= 25 && bmi < 30) {
                 //document.getElementById("bmiColor").style.color = "yellow";
                 $('#row-result').removeClass('gradient-green').addClass('gradient-orange');
                 return "Leichtes Übergewicht";
