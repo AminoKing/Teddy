@@ -58,16 +58,18 @@
 
         input[type=radio]:checked + label>img {
             border: 1px solid #fff;
-            box-shadow: 0 0 3px 3px #090;
+            /*box-shadow: 0 0 3px 3px #090;*/
         }
 
         /* Stuff after this is only to make things more pretty */
         input[type=radio] + label>img {
 
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             transition: 500ms all;
             margin-right: 8px;
+            margin-left: 8px;
+
             align-self: center;
         }
 
@@ -347,7 +349,7 @@
                 <div class="col">
 
 
-                        <h3>BMI-Rechner</h3>
+                        <h3>BMI- & Kalorienrechner</h3>
                         <br>
                         <b-input-group prepend="Geschlecht">
 
@@ -371,7 +373,11 @@
 
                             <b-input-group prepend="Alter">
                                 <b-form-input  v-model.number="age" type="number" min=0 step="any" size="lg"></b-form-input>
-
+                                <b-input-group-append>
+                                    <div>
+                                        <b-input-group prepend="Jahre">
+                                    </div>
+                                </b-input-group-append>
 
                             </b-input-group>
 
@@ -382,8 +388,8 @@
 
                                 <b-input-group-append>
                                     <div>
-                                        <b-form-select v-model="heightSelected" :options="heightOptions" size="lg">
-                                        <div>Selected: <strong>{{ heightSelected }}</strong></div>
+                                        <b-input-group prepend="cm">
+
                                     </div>
                                 </b-input-group-append>
                             </b-input-group>
@@ -395,11 +401,24 @@
 
                                 <b-input-group-append>
                                     <div>
-                                        <b-form-select v-model="weightSelected" :options="weightOptions" size="lg">
-                                            <div>Selected: <strong>{{ weightSelected }}</strong></div>
+                                        <b-input-group prepend="kg">
                                     </div>
                                 </b-input-group-append>
                             </b-input-group>
+
+
+                    <b-input-group prepend="Tätigkeit">
+
+
+                        <b-input-group-append>
+                            <div>
+                                <b-form-select v-model="activityselected" :options="activityOptions" size="lg">
+                                    <div>Selected: <strong>{{ activityselected }}</strong></div>
+                            </div>
+                        </b-input-group-append>
+                    </b-input-group>
+
+
 
                     </form>
                 </div>
@@ -410,15 +429,36 @@
         <div id="row-result" class="row gradient-green">
             <div class="col">
                 <span class="title">
-                    Dein BMI ist:
+                    Dein BMI:
                 </span><br>
-                <span class="group">
-                    {{ weightGroup }}
-                </span>
+
             </div>
-            <div class="col bmi" >
-                <div id='bmiColor' style="color: white">{{ bmi }}</div>
+            <div class="col">
+                <span class="title">
+                    {{ bmi }}
+                </span><br>
+
             </div>
+            <span class="title">
+            {{ weightGroup }}
+                <div id='bmiColor' style="color: white"></div>
+ </span>
+        </div>
+        <div id="row-result-2">
+            <div class="col">
+                <span class="title">
+                    Idealgewicht: {{idealWeighMin}}kg - {{idealWeighMax}}kg
+                </span><br>
+
+            </div>
+            <div class="col">
+                <span class="title">
+                    Energiebedarf pro Tag: {{getMifflin}}kcal
+                </span><br>
+
+            </div>
+
+ </span>
         </div>
     </div>
 
@@ -435,6 +475,15 @@
                 age:30,
                 gender:'male',
                 weightSelected: 'kg',
+                activityselected:'0',
+                activityOptions: [
+                    { value: '0', text: 'Grundbedarf' },
+                    { value: '1', text: 'hauptsächlich sitzend' },
+                    { value: '2', text: 'sitzend und stehend' },
+                    { value: '3', text: 'hauptsächlich stehend' },
+                    { value: '4', text: 'körperlich anstrengend' },
+
+                ],
                 weightOptions: [
                     { value: 'kg', text: 'kg' },
 
@@ -454,12 +503,16 @@
                     return round(calculateBMI(this.weight, this.height,this.age, this.gender), 1);
                 },
                 weightGroup() {
-
-                        return getWeightGroup(this.bmi);
-
-                      ;
-
-
+                    return getWeightGroup(this.bmi, this.gender, this.age);
+                },
+                idealWeighMax(){
+                  return(round(calculateIdealWeigh(this.height, this.age, this.gender, true),1));
+                },
+                idealWeighMin(){
+                    return(round(calculateIdealWeigh(this.height, this.age, this.gender, false),1));
+                },
+                getMifflin(){
+                    return(round(calculateMifflin(this.weight, this.height, this.age, this.gender, this.activityselected),0));
                 }
             },
             watch: {
@@ -477,6 +530,10 @@
                     } else if (val == 'us') {
                         this.updateImperial(this.height);
                     }
+                },
+                activityselected(val) {
+
+                    this.activityselected = val;
                 },
                 height_ft(val) {
                     this.height = round(imperialToCm(val, this.height_inch), 0);
@@ -527,72 +584,175 @@
             let m = cm / 100;
             if (kg > 0 && m > 0) {
                 let tempBmi = kg / Math.pow(m, 2);
-                if(gender ==='female')
-                {
-                    tempBmi = tempBmi -1;
-                }
-                if(age > 18)
-                {
-                    if(age > 18 && age < 25)
-                    {
 
-                    }
-                    else if(age > 24 && age < 35)
-                    {
-                        tempBmi = tempBmi +1;
-                    }
-                    else if(age > 34 && age < 45)
-                    {
-                        tempBmi = tempBmi +2;
-                    }
-                    else if(age > 44 && age < 55)
-                    {
-                        tempBmi = tempBmi +3;
-                    }
-                    else if(age > 54 && age < 65)
-                    {
-                        tempBmi = tempBmi +4;
-                    }
-                    else{
-                        tempBmi = tempBmi +5;
-                    }
-                }
                 return tempBmi;
             } else {
                 return 0;
             }
         }
-        function getWeightGroup(bmi) {
 
+        function calculateMifflin(kg, cm,age, gender, activity) {
+
+            var result = 0;
+            const pal = 1.8;
+            var tempAct = 0;
+
+
+           if(kg >0 && cm >0 && age >0)
+           {
+               if(gender === 'female') {
+
+               result= (9.99 * kg) +  (6.25* cm) - (4.92 * age) -161;}
+               else
+               {
+                   result= (9.99 * kg) +  (6.25* cm) - (4.92 * age) +5;
+               }
+
+           }
+
+
+
+               if(activity === '1')
+               {
+                   tempAct = 1.45;
+               }
+               else if(activity === '2')
+               {
+                   tempAct = 1.65;
+               }
+               else if(activity === '3'){
+                   tempAct = 1.85;
+               }
+               else if(activity === '4'){
+                   tempAct = 2.2;
+               }
+               else{
+                   tempAct = 2;
+               }
+
+               result = result * (tempAct - 1);
+
+
+
+            return result;
+           }
+
+
+
+        function calculateIdealWeigh(cm, age, gender, ismax) {
+            let m = cm / 100;
+            var kgmax = 0;
+            var maxBmi =24;
+            var minBmi = 19;
+            if(gender ==='female')
+            {
+                maxBmi = maxBmi -1;
+                minBmi = minBmi -1;
+            }
+            if(age > 18)
+            {
+                if(age > 18 && age < 25)
+                {
+
+                }
+                else if(age > 24 && age < 35)
+                {
+                    maxBmi = maxBmi +1;
+                    minBmi = minBmi +1;
+                }
+                else if(age > 34 && age < 45)
+                {
+                    maxBmi = maxBmi +2;
+                    minBmi = minBmi +2;
+                }
+                else if(age > 44 && age < 55)
+                {
+                    maxBmi = maxBmi +3;
+                    minBmi = minBmi +3;
+                }
+                else if(age > 54 && age < 65)
+                {
+                    maxBmi = maxBmi +4;
+                    minBmi = minBmi +4;
+                }
+                else{
+                    maxBmi = maxBmi -5;
+                    minBmi = minBmi -5;
+                }
+            }
+            if (m > 0) {
+                //pow= Potenz
+                if(ismax){
+                    kgmax= maxBmi * Math.pow(m, 2);
+                }else{
+                    kgmax = minBmi * Math.pow(m, 2);
+                }
+                return kgmax;
+            } else {
+                return 0;
+            }
+        }
+        function getWeightGroup(bmi, gender, age) {
+           var tempBmi = bmi;
+            if(gender ==='female')
+            {
+                tempBmi = tempBmi -1;
+            }
+            if(age > 18)
+            {
+                if(age > 18 && age < 25)
+                {
+
+                }
+                else if(age > 24 && age < 35)
+                {
+                    tempBmi = tempBmi -1;
+                }
+                else if(age > 34 && age < 45)
+                {
+                    tempBmi = tempBmi -2;
+                }
+                else if(age > 44 && age < 55)
+                {
+                    tempBmi = tempBmi -3;
+                }
+                else if(age > 54 && age < 65)
+                {
+                    tempBmi = tempBmi -4;
+                }
+                else{
+                    tempBmi = tempBmi -5;
+                }
+            }
 
             if (bmi == 0) {
                 return "";
-            } else if (bmi < 15) {
+            } else if (tempBmi < 15) {
                 // document.getElementById("bmiColor").style.color = "red";
                 return "Extremes Untergewicht";
-            } else if (bmi >= 15 && bmi < 16) {
+            } else if (tempBmi >= 15 && tempBmi < 16) {
                // document.getElementById("bmiColor").style.color = "tomato";
                 return "Starkes Untergewicht";
-            } else if (bmi >= 16 && bmi < 18.5) {
+            } else if (tempBmi >= 16 && tempBmi < 19) {
                 //document.getElementById("bmiColor").style.color = "yellow";
                 $('#row-result').removeClass('gradient-green').addClass('gradient-orange');
                 return "Untergewicht";
-            } else if (bmi >= 18.5 && bmi < 25) {
+            } else if (tempBmi >= 19 && tempBmi < 24) {
                // document.getElementById("bmiColor").style.color = "green";
                 $('#row-result').removeClass('gradient-orange').addClass('gradient-green');
                 return "Gesundes Gewicht";
-            } else if (bmi >= 25 && bmi < 30) {
+            } else if (tempBmi >= 24 && tempBmi < 30) {
                 //document.getElementById("bmiColor").style.color = "yellow";
                 $('#row-result').removeClass('gradient-green').addClass('gradient-orange');
                 return "Leichtes Übergewicht";
-            } else if (bmi >= 30 && bmi < 35) {
+            } else if (tempBmi >= 30 && tempBmi < 35) {
                 //row-result
 
                 return "Übergewicht";
-            } else if (bmi >= 35 && bmi < 40) {
+            } else if (tempBmi >= 35 && tempBmi < 40) {
                 //document.getElementById("bmiColor").style.color = "red";
                 return "Starkes Übergewicht";
-            } else if (bmi > 40) {
+            } else if (tempBmi > 40) {
                 //document.getElementById("bmiColor").style.color = "red";
                 return "Sehr starkes Übergewicht";
             }
@@ -602,13 +762,21 @@
     </script>
 <script>
     function changeValue(params){
-       if(params === 'male'){
+
+        if(params === 'male'){
+
            this.gender = 'male';
-        $('#male_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_selected.png');
+           calculateBMI(this.weight, this.height, this.age,this.gender);
+
+           $('#male_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_selected.png');
            $('#female_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_1.png');
        }
        else{
+
+
            this.gender = 'female';
+           alert(this.gender);
+           calculateBMI(this.weight, this.height, this.age,this.gender);
            $('#female_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_selected.png');
            $('#male_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_1.png');
        }
