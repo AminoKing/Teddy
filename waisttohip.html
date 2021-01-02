@@ -478,7 +478,7 @@
             },
             computed: {
                 whr() {
-                    return round(calculateWHR(this.waist, this.hip), 1);
+                    return round(calculateWHR(this.waist, this.hip), 2);
                 },
                 idealWaist() {
                     return round(calculateIdealWaist(this.hip, this.gender),2);
@@ -608,7 +608,7 @@
         function calculateIdealWaist(hip, gender) {
             var result= 0;
             if(hip > 0){
-                alert(gender);
+
             if(gender === 'male'){
                  result = hip * 0.8;
             }else{
@@ -621,7 +621,7 @@
            var tempWhr = whr;
             if(gender ==='female')
             {
-                tempWhr = tempWhr -0.1;
+                tempWhr = tempWhr +0.1;
             }
 
             if (tempWhr == 0) {
@@ -661,7 +661,7 @@
            $('#female_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_selected.png');
            $('#male_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_1.png');
        }
-       alert(this.gender);
+
     }
 
 </script>
