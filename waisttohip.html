@@ -592,10 +592,13 @@
             font-size: 1.3rem;
         }
 
-        .aParent div {
+        .cellContainer {
+            width: 25%;
             float: left;
-            clear: none;
-            margin-right: 12px;
+        }
+
+
+
         }
         /* mobile */
         @media all and (max-width: 575.99px) {
@@ -712,8 +715,8 @@
     </style>
 </head>
 <body>
-<div class="aParent">
-<div id="app2" class="animated fadeInUp" v-cloak>
+
+<div id="app2" class="animated fadeInUp" style="float: left;" v-cloak>
     <div class="container">
 
         <!-- title row -->
@@ -853,7 +856,7 @@
 </div>
 
     <!-- app window -->
-    <div id="app" class="animated fadeInUp" v-cloak>
+    <div id="app" class="animated fadeInUp" style="float: left;margin: 10px;"  v-cloak>
         <div class="container">
 
             <!-- title row -->
