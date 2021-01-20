@@ -592,6 +592,11 @@
             font-size: 1.3rem;
         }
 
+        .aParent div {
+            float: left;
+            clear: none;
+            margin-right: 12px;
+        }
         /* mobile */
         @media all and (max-width: 575.99px) {
 
@@ -703,10 +708,11 @@
             -webkit-animation-name: fadeInUp;
             animation-name: fadeInUp;
         }
+
     </style>
 </head>
 <body>
-
+<div class="aParent">
 <div id="app2" class="animated fadeInUp" v-cloak>
     <div class="container">
 
@@ -846,11 +852,6 @@
     </div>
 </div>
 
-<br>
-<br>
-<br>
-<br>
-<br>
     <!-- app window -->
     <div id="app" class="animated fadeInUp" v-cloak>
         <div class="container">
@@ -974,6 +975,7 @@
  </span>
         </div>
     </div>
+</div>
 
     <!-- javascript -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
