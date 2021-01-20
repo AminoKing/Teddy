@@ -709,11 +709,16 @@
             animation-name: fadeInUp;
         }
 
+        .aParent div {
+            float: left;
+            clear: none;
+        }
+
     </style>
 </head>
 <body>
-
-<div id="app2" class="animated fadeInUp" style="float: left;" v-cloak>
+<div class="aParent">
+<div id="app2" class="animated fadeInUp" v-cloak>
     <div class="container">
 
         <!-- title row -->
@@ -853,7 +858,7 @@
 </div>
 
     <!-- app window -->
-    <div id="app" class="animated fadeInUp" style="float: left;margin: 4px;"  v-cloak>
+    <div id="app" class="animated fadeInUp" v-cloak>
         <div class="container">
 
             <!-- title row -->
@@ -975,6 +980,7 @@
  </span>
         </div>
     </div>
+</div>
 </div>
 
     <!-- javascript -->
