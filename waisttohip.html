@@ -37,19 +37,7 @@
 <!--    <link rel="stylesheet" type="text/css" href="css/style.css">-->
     <style>
 
-        /*body {*/
-        /*    min-height: 100vh;*/
-        /*    margin: 0 0;*/
-        /*    padding: 0 0;*/
-        /*    display: flex;*/
-        /*    align-items: center;*/
-        /*    justify-content: center;*/
-        /*    font-family: 'Poppins';*/
-        /*    font-weight: 400;*/
-        /*    color: #111;*/
-        /*}*/
 
-        /* general classes */
 
         .input-hidden {
             position: absolute;
@@ -251,148 +239,6 @@
                 background: #AAA8E2;
             }
 
-            #app2 {
-                position: relative;
-                z-index: 99;
-                max-width: 350px;
-                box-shadow: 0 3px 6px rgba(0,0,0,0.13), 0 3px 6px rgba(0,0,0,0.13);
-                border-radius: 8px;
-            }
-            #app2 > .container {
-                padding-top: 50px;
-                padding-bottom: 0px;
-                background-color: rgba(255,255,255,0.9);
-                border-radius: 8px 8px 0px 0px;
-            }
-            #app2 .row {
-                padding-left: 5px;
-                padding-right: 5px;
-                text-align: center;
-            }
-
-            /* title row */
-            #row-title h1 {
-                font-weight: 300;
-            }
-            #row-title hr {
-                border: 1px solid #0000FF;
-                margin-top: 0rem;
-                margin-bottom: 0.75rem;
-            }
-            #row-title h4 {
-                /*font-size: 1rem;*/
-                font-weight: 400;
-            }
-
-            /* input row */
-
-            #row-input2 .form-group {
-                border-radius: 999px;
-                box-shadow: 0 0px 20px rgba(0,0,0,0.05), 0 0px 20px rgba(0,0,0,0.05);
-            }
-            #row-input2 input {
-                border: none;
-                border-right: 1px solid rgba(206,212,218,0.3);
-                border-left: 1px solid rgba(206,212,218,0.3);
-            }
-            #row-input2 .input-group-prepend .input-group-text {
-                width: 70px;
-                background-color: white;
-                border-radius: 999px 0 0 999px;
-                padding-left: 1px;
-                border: none;
-                font-size: 13px;
-            }
-            #row-input2 select {
-                border-radius: 0 999px 999px 0;
-                width: 5px;
-                border: none;
-            }
-
-            /* result panel */
-            #row-result2 {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding-top: 15px;
-                padding-bottom: 15px;
-                border-radius: 0 0 8px 8px;
-                color: white;
-                opacity: 0.8;
-                margin: 0 0;
-            }
-            #row-result2 .col:last-child {
-                flex-grow: 0;
-                font-size: 2.3em;
-            }
-            #row-result2 .title {
-                font-weight: 500;
-                font-size: 1.3rem;
-            }
-
-            /* mobile */
-            @media all and (max-width: 575.99px) {
-
-                /* removing flex from body (moves #app to top */
-                body {
-                    display: block;
-                }
-
-                /*  removing border radius & shadow */
-                #app2 {
-                    border-radius: 0;
-                    box-shadow: none;
-                }
-                #app2 > .container {
-                    border-radius: 0;
-                }
-                #row-result2 {
-                    border-radius: 0;
-
-                }
-
-                /* removing extra padding from rows */
-                #app2 .row {
-                    padding-left: 0px;
-
-                }
-
-                /* adding padding back for results row */
-                #row-result2 .col {
-                    padding-left: 0px;
-                    padding-right: 0px;
-
-                }
-
-                /* making app window flex */
-                #app2 {
-                    min-height: 60vh;
-                    display: flex;
-                    flex-direction: column;
-                }
-                #app2 > * {
-                    flex: 1;
-                }
-                #app2 > .container {
-                    display: flex;
-                    flex-direction: column;
-                }
-                #row-title {
-                    flex: 1;
-                }
-                #row-input2 {
-                    flex: 1;
-                }
-
-                /* flat background */
-                #background svg {
-                    display: none;
-                }
-                #background {
-                    background: #AAA8E2;
-                }
-
-            }
 
 
         }
@@ -499,213 +345,16 @@
             right: 0;
         }
 
-        /* app window */
-        #app2 {
-            position: relative;
-            z-index: 99;
-            max-width: 400px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.13), 0 3px 6px rgba(0,0,0,0.13);
-            border-radius: 8px;
-        }
-        #app2 > .container {
-            padding-top: 0px;
-            padding-bottom: 0px;
-            background-color: rgba(255,255,255,0.9);
-            border-radius: 8px 8px 0px 0px;
-        }
-        #app2 .row {
-            padding-left: 25px;
-            padding-right: 25px;
-            text-align: center;
-        }
-
-        /* title row */
-        #row-title h1 {
-            font-weight: 300;
-        }
-        #row-title hr {
-            border: 1px solid #0000FF;
-            margin-top: 0rem;
-            margin-bottom: 0.75rem;
-        }
-        #row-title h4 {
-            /*font-size: 1rem;*/
-            font-weight: 400;
-        }
-
-        /* input row */
-
-        #row-input2 .form-group {
-            border-radius: 999px;
-            box-shadow: 0 0px 20px rgba(0,0,0,0.05), 0 0px 20px rgba(0,0,0,0.05);
-        }
-        #row-input2 input {
-            border: none;
-            border-right: 1px solid rgba(206,212,218,0.3);
-            border-left: 1px solid rgba(206,212,218,0.3);
-        }
-        #row-input2 .input-group-prepend .input-group-text {
-            width: 70px;
-            background-color: white;
-            border-radius: 999px 0 0 999px;
-            padding-left: 1px;
-            border: none;
-            font-size: 13px;
-        }
-        #row-input2 select {
-            border-radius: 0 999px 999px 0;
-            width: 100px;
-            border: none;
-        }
-
-        /* result panel */
-        #row-result2 {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-top: 15px;
-            padding-bottom: 15px;
-            border-radius: 0 0 8px 8px;
-            color: white;
-            opacity: 0.8;
-            margin: 0 0;
-        }
-        #row-result2 .col:last-child {
-            flex-grow: 0;
-            font-size: 2.3em;
-        }
-        #row-result2 .title {
-            font-weight: 500;
-            font-size: 1.3rem;
-        }
-
-
-
-
-
-
-        /* mobile */
-        @media all and (max-width: 575.99px) {
-
-            /* removing flex from body (moves #app to top */
-            body {
-                display: block;
-            }
-
-            /*  removing border radius & shadow */
-            #app2 {
-                border-radius: 0;
-                box-shadow: none;
-            }
-            #app2 > .container {
-                border-radius: 0;
-            }
-            #row-result2 {
-                border-radius: 0;
-
-            }
-
-            /* removing extra padding from rows */
-            #app2 .row {
-                padding-left: 0px;
-
-            }
-
-            /* adding padding back for results row */
-            #row-result2 .col {
-                padding-left: 0px;
-                padding-right: 0px;
-
-            }
-
-            /* making app window flex */
-            #app2 {
-                min-height: 60vh;
-                display: flex;
-                flex-direction: column;
-            }
-            #app2 > * {
-                flex: 1;
-            }
-            #app2 > .container {
-                display: flex;
-                flex-direction: column;
-            }
-            #row-title {
-                flex: 1;
-            }
-            #row-input2 {
-                flex: 1;
-            }
-
-            /* flat background */
-            #background svg {
-                display: none;
-            }
-            #background {
-                background: #AAA8E2;
-            }
-
-        }
-
-
-
-
-        .animated {
-            -webkit-animation-duration: 1.3s;
-            animation-duration: 1.3s;
-            -webkit-animation-fill-mode: both;
-            animation-fill-mode: both;
-        }
-
-        .animated.infinite {
-            -webkit-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
-        }
-
-        @-webkit-keyframes fadeInUp {
-            from {
-                opacity: 0;
-                -webkit-transform: translate3d(0, 10%, 0);
-                transform: translate3d(0, 10%, 0);
-            }
-
-            to {
-                opacity: 1;
-                -webkit-transform: translate3d(0, 0, 0);
-                transform: translate3d(0, 0, 0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                -webkit-transform: translate3d(0, 10%, 0);
-                transform: translate3d(0, 10%, 0);
-            }
-
-            to {
-                opacity: 1;
-                -webkit-transform: translate3d(0, 0, 0);
-                transform: translate3d(0, 0, 0);
-            }
-        }
-
-        .fadeInUp {
-            -webkit-animation-name: fadeInUp;
-            animation-name: fadeInUp;
-        }
-
 
 
     </style>
 </head>
 <body>
-<div class="aParent">
-<div id="app2" class="animated fadeInUp" v-cloak>
+
+<!--<div id="app2" class="animated fadeInUp" v-cloak>
     <div class="container">
 
-        <!-- title row -->
+        &lt;!&ndash; title row &ndash;&gt;
 
 
 
@@ -715,7 +364,7 @@
 
 
 
-        <!-- input row -->
+        &lt;!&ndash; input row &ndash;&gt;
         <div id="row-input2" class="row">
 
 
@@ -763,7 +412,7 @@
 
                 </b-input-group>
                 <b-input-group prepend="Größe">
-                    <b-form-input v-if="heightSelected !== 'us'" v-model.number="height" type="number" min=0 step="any" size="lg"></b-form-input>
+                    <b-form-input v-iAf="heightSelected !== 'us'" v-model.number="height" type="number" min=0 step="any" size="lg"></b-form-input>
 
                     <b-input-group-append>
                         <div>
@@ -804,7 +453,7 @@
         </div>
     </div>
 
-    <!-- results row -->
+    &lt;!&ndash; results row &ndash;&gt;
     <div id="row-result2" class="row gradient-green">
         <div class="col">
                 <span>
@@ -839,9 +488,9 @@
 
         </span>
     </div>
-</div>
+</div>-->
 <br>
-   
+
     <!-- app window -->
     <div id="app" class="animated fadeInUp" v-cloak>
         <div class="container">
@@ -973,7 +622,7 @@
     <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
     <script>
-        new Vue({
+      /*  new Vue({
             el: '#app2',
             data: {
                 weight: 75,
@@ -1054,7 +703,7 @@
                     this.height_inch = cmToImperial(cm).inches;
                 }
             }
-        });
+        });*/
         new Vue({
             el: '#app',
             data: {
@@ -1375,32 +1024,16 @@
            $('#male_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_selected.png');
            $('#female_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_1.png');
        }
-       else if(params === 'male2'){
 
 
-           this.gender2 = 'male';
+        else{
 
 
-            $('#male_img2').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_selected.png');
-            $('#female_img2').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_1.png');
-       }
-        else if(params === 'female'){
-
-
-            this.gender = 'female';
+            this.gender= 'female';
 
 
             $('#female_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_selected.png');
             $('#male_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_1.png');
-        }
-        else if(params === 'male2'){
-
-
-            this.gender2 = 'female2';
-
-
-            $('#female_img2').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_selected.png');
-            $('#male_img2').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_1.png');
         }
 
     }

@@ -33,8 +33,8 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800" rel="stylesheet">
 
     <!-- custom CSS -->
-    <link rel="stylesheet" type="text/css" href="css/animate.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!--    <link rel="stylesheet" type="text/css" href="css/animate.css">-->
+    <!--    <link rel="stylesheet" type="text/css" href="css/style.css">-->
     <style>
 
         /*body {*/
@@ -73,28 +73,402 @@
             align-self: center;
         }
 
-        /*input[type=radio]:checked + label>img {*/
-        /*    transform:*/
-        /*            rotateZ(-10deg)*/
-        /*            rotateX(10deg);*/
-        /*}*/
 
-        /*html {*/
-        /*    background-color: #fff;*/
-        /*    background-size: 100% 1.2em;*/
-        /*    background-image:*/
-        /*            linear-gradient(*/
-        /*                    90deg,*/
-        /*                    transparent 79px,*/
-        /*                    #abced4 79px,*/
-        /*                    #abced4 81px,*/
-        /*                    transparent 81px*/
-        /*            ),*/
-        /*            linear-gradient(*/
-        /*                    #eee .1em,*/
-        /*                    transparent .1em*/
-        /*            );*/
-        /*}*/
+        .gradient-green {
+            background: #A1FFCE;  /* fallback for old browsers *///
+        background: -webkit-linear-gradient(to right, #F3DB00, #FF8033);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #F3DB00, #5fff33); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        .gradient-orange {
+            background: #A1FFCE;  /* fallback for old browsers *///
+        background: -webkit-linear-gradient(to right, #F3DB00, #FF8033);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #F3DB00, #ff8033); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        .gradient-red {
+            background: #A1FFCE;  /* fallback for old browsers *///
+        background: -webkit-linear-gradient(to right, #F3DB00, #FF8033);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #F3DB00, #fc0000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+
+        [v-cloak] {display: none !important;}
+
+        /* background */
+        #background {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+            background: -webkit-linear-gradient(to right, rgba(69,104,220,0.3), rgba(176,106,179,0.3));  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, rgba(69,104,220,0.3), rgba(176,106,179,0.3)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        #background > svg {
+            height: 100vh;
+            position: absolute;
+            right: 0;
+        }
+
+        /* app window */
+        #app {
+            position: relative;
+            z-index: 99;
+            max-width: 350px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.13), 0 3px 6px rgba(0,0,0,0.13);
+            border-radius: 1px;
+        }
+        #app > .container {
+            padding-top: 0px;
+            padding-bottom: 0px;
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 8px 8px 0px 0px;
+        }
+        #app .row {
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: center;
+        }
+
+        /* title row */
+        #row-title h1 {
+            font-weight: 100;
+        }
+        #row-title hr {
+            border: 1px solid #0000FF;
+            margin-top: 0rem;
+            margin-bottom: 0.75rem;
+        }
+        #row-title h4 {
+            /*font-size: 1rem;*/
+            font-weight: 400;
+        }
+
+        /* input row */
+
+        #row-input .form-group {
+            border-radius: 999px;
+            box-shadow: 0 0px 20px rgba(0,0,0,0.05), 0 0px 20px rgba(0,0,0,0.05);
+        }
+        #row-input input {
+            border: none;
+            border-right: 1px solid rgba(206,212,218,0.3);
+            border-left: 1px solid rgba(206,212,218,0.3);
+        }
+        #row-input .input-group-prepend .input-group-text {
+            width: 70px;
+            background-color: white;
+            border-radius: 999px 0 0 999px;
+            padding-left: 1px;
+            border: none;
+            font-size: 14px;
+        }
+        #row-input select {
+            border-radius: 0 999px 999px 0;
+            width: 25px;
+            border: none;
+        }
+
+        /* result panel */
+        #row-result {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border-radius: 0 0 8px 8px;
+            color: white;
+            opacity: 0.8;
+            margin: 0 0;
+        }
+        #row-result .col:last-child {
+            flex-grow: 0;
+            font-size: 2.3em;
+        }
+        #row-result .title {
+            font-weight: 500;
+            font-size: 1.3rem;
+        }
+
+        /* mobile */
+        @media all and (max-width: 575.99px) {
+
+            /* removing flex from body (moves #app to top */
+            body {
+                display: block;
+            }
+
+            /*  removing border radius & shadow */
+            #app {
+                border-radius: 0;
+                box-shadow: none;
+            }
+            #app > .container {
+                border-radius: 0;
+            }
+            #row-result {
+                border-radius: 0;
+
+            }
+
+            /* removing extra padding from rows */
+            #app .row {
+                padding-left: 0px;
+
+            }
+
+            /* adding padding back for results row */
+            #row-result .col {
+                padding-left: 0px;
+                padding-right: 0px;
+
+            }
+
+            /* making app window flex */
+            #app {
+                min-height: 60vh;
+                display: flex;
+                flex-direction: column;
+            }
+            #app > * {
+                flex: 1;
+            }
+            #app > .container {
+                display: flex;
+                flex-direction: column;
+            }
+            #row-title {
+                flex: 1;
+            }
+            #row-input {
+                flex: 1;
+            }
+
+            /* flat background */
+            #background svg {
+                display: none;
+            }
+            #background {
+                background: #AAA8E2;
+            }
+
+            #app2 {
+                position: relative;
+                z-index: 99;
+                max-width: 350px;
+                box-shadow: 0 3px 6px rgba(0,0,0,0.13), 0 3px 6px rgba(0,0,0,0.13);
+                border-radius: 8px;
+            }
+            #app2 > .container {
+                padding-top: 50px;
+                padding-bottom: 0px;
+                background-color: rgba(255,255,255,0.9);
+                border-radius: 8px 8px 0px 0px;
+            }
+            #app2 .row {
+                padding-left: 5px;
+                padding-right: 5px;
+                text-align: center;
+            }
+
+            /* title row */
+            #row-title h1 {
+                font-weight: 300;
+            }
+            #row-title hr {
+                border: 1px solid #0000FF;
+                margin-top: 0rem;
+                margin-bottom: 0.75rem;
+            }
+            #row-title h4 {
+                /*font-size: 1rem;*/
+                font-weight: 400;
+            }
+
+            /* input row */
+
+            #row-input2 .form-group {
+                border-radius: 999px;
+                box-shadow: 0 0px 20px rgba(0,0,0,0.05), 0 0px 20px rgba(0,0,0,0.05);
+            }
+            #row-input2 input {
+                border: none;
+                border-right: 1px solid rgba(206,212,218,0.3);
+                border-left: 1px solid rgba(206,212,218,0.3);
+            }
+            #row-input2 .input-group-prepend .input-group-text {
+                width: 70px;
+                background-color: white;
+                border-radius: 999px 0 0 999px;
+                padding-left: 1px;
+                border: none;
+                font-size: 13px;
+            }
+            #row-input2 select {
+                border-radius: 0 999px 999px 0;
+                width: 5px;
+                border: none;
+            }
+
+            /* result panel */
+            #row-result2 {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                border-radius: 0 0 8px 8px;
+                color: white;
+                opacity: 0.8;
+                margin: 0 0;
+            }
+            #row-result2 .col:last-child {
+                flex-grow: 0;
+                font-size: 2.3em;
+            }
+            #row-result2 .title {
+                font-weight: 500;
+                font-size: 1.3rem;
+            }
+
+            /* mobile */
+            @media all and (max-width: 575.99px) {
+
+                /* removing flex from body (moves #app to top */
+                body {
+                    display: block;
+                }
+
+                /*  removing border radius & shadow */
+                #app2 {
+                    border-radius: 0;
+                    box-shadow: none;
+                }
+                #app2 > .container {
+                    border-radius: 0;
+                }
+                #row-result2 {
+                    border-radius: 0;
+
+                }
+
+                /* removing extra padding from rows */
+                #app2 .row {
+                    padding-left: 0px;
+
+                }
+
+                /* adding padding back for results row */
+                #row-result2 .col {
+                    padding-left: 0px;
+                    padding-right: 0px;
+
+                }
+
+                /* making app window flex */
+                #app2 {
+                    min-height: 60vh;
+                    display: flex;
+                    flex-direction: column;
+                }
+                #app2 > * {
+                    flex: 1;
+                }
+                #app2 > .container {
+                    display: flex;
+                    flex-direction: column;
+                }
+                #row-title {
+                    flex: 1;
+                }
+                #row-input2 {
+                    flex: 1;
+                }
+
+                /* flat background */
+                #background svg {
+                    display: none;
+                }
+                #background {
+                    background: #AAA8E2;
+                }
+
+            }
+
+
+        }
+
+
+
+
+        .animated {
+            -webkit-animation-duration: 1.3s;
+            animation-duration: 1.3s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        .animated.infinite {
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+        }
+
+        @-webkit-keyframes fadeInUp {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(0, 10%, 0);
+                transform: translate3d(0, 10%, 0);
+            }
+
+            to {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(0, 10%, 0);
+                transform: translate3d(0, 10%, 0);
+            }
+
+            to {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        .fadeInUp {
+            -webkit-animation-name: fadeInUp;
+            animation-name: fadeInUp;
+        }
+
+
+        .input-hidden {
+            position: absolute;
+            left: -9999px;
+        }
+
+        input[type=radio]:checked + label>img {
+            border: 1px solid #fff;
+            /*box-shadow: 0 0 3px 3px #090;*/
+        }
+
+        /* Stuff after this is only to make things more pretty */
+        input[type=radio] + label>img {
+
+            width: 30px;
+            height: 30px;
+            transition: 500ms all;
+            margin-right: 8px;
+            margin-left: 8px;
+
+            align-self: center;
+        }
+
+
         .gradient-green {
             background: #A1FFCE;  /* fallback for old browsers *///
         background: -webkit-linear-gradient(to right, #F3DB00, #FF8033);  /* Chrome 10-25, Safari 5.1-6 */
@@ -125,7 +499,6 @@
             right: 0;
         }
 
-        /* app window */
         /* app window */
         #app2 {
             position: relative;
@@ -322,150 +695,277 @@
             -webkit-animation-name: fadeInUp;
             animation-name: fadeInUp;
         }
+
+
+
     </style>
 </head>
 <body>
+<div class="aParent">
+    <div id="app2" class="animated fadeInUp" v-cloak>
+        <div class="container">
+
+            <!-- title row -->
 
 
 
-<!-- app window -->
-<div id="app2" class="animated fadeInUp" v-cloak>
-    <div class="container">
-
-        <!-- title row -->
-
-
-
-        <br>
-
-
-
-
-
-        <!-- input row -->
-        <div id="row-input2" class="row">
-
-
-            <br>
-            <br>
             <br>
 
 
 
-            <div class="col">
 
 
-                <h3>BMI- & Kalorienrechner</h3>
+            <!-- input row -->
+            <div id="row-input2" class="row">
+
+
                 <br>
-                <b-input-group prepend="Geschlecht">
+                <br>
+                <br>
 
 
-                    <input
-                            type="radio" v-model="gender2" name="emotion"
-                            id="male2" value="male" onclick="changeValue('male')
+
+                <div class="col">
+
+
+                    <h3>BMI- & Kalorienrechner</h3>
+                    <br>
+                    <b-input-group prepend="Geschlecht">
+
+
+                        <input
+                                type="radio" v-model="gender2" name="emotion"
+                                id="male2" value="male" onclick="changeValue('male2')
                                 " class="input-hidden" />
-                    <label for="male2">
-                        <img id="male_img2"
-                             src="https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_1.png">
-                    </label>
+                        <label for="male2">
+                            <img id="male_img2"
+                                 src="https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_1.png">
+                        </label>
 
-                    <input
-                            type="radio" v-model="gender2" name="emotion"
-                            id="female2" value="female" class="input-hidden" onclick="changeValue('female')" />
-                    <label for="female2">
-                        <img id="female_img2"
-                             src="https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_1.png">
-                    </label>
+                        <input
+                                type="radio" v-model="gender2" name="emotion"
+                                id="female2" value="female" class="input-hidden" onclick="changeValue('female2')" />
+                        <label for="female2">
+                            <img id="female_img2"
+                                 src="https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_1.png">
+                        </label>
 
-                    <b-input-group prepend="Alter">
-                        <b-form-input  v-model.number="age" type="number" min=0 step="any" size="lg"></b-form-input>
+                        <b-input-group prepend="Alter">
+                            <b-form-input  v-model.number="age" type="number" min=0 step="any" size="lg"></b-form-input>
+                            <b-input-group-append>
+                                <div>
+                                    <b-input-group prepend="Jahre">
+                                </div>
+                            </b-input-group-append>
+
+                        </b-input-group>
+
+
+                    </b-input-group>
+                    <b-input-group prepend="Größe">
+                        <b-form-input v-iAf="heightSelected !== 'us'" v-model.number="height" type="number" min=0 step="any" size="lg"></b-form-input>
+
                         <b-input-group-append>
                             <div>
-                                <b-input-group prepend="Jahre">
+                                <b-input-group prepend="cm">
+
                             </div>
                         </b-input-group-append>
-
                     </b-input-group>
 
 
-                </b-input-group>
-                <b-input-group prepend="Größe">
-                    <b-form-input v-iAf="heightSelected !== 'us'" v-model.number="height" type="number" min=0 step="any" size="lg"></b-form-input>
 
-                    <b-input-group-append>
-                        <div>
-                            <b-input-group prepend="cm">
+                    <b-input-group prepend="Gewicht">
+                        <b-form-input v-if="weightSelected == 'kg'" v-model.number="weight" type="number" min=0 step="any" size="lg"></b-form-input>
 
-                        </div>
-                    </b-input-group-append>
-                </b-input-group>
-
+                        <b-input-group-append>
+                            <div>
+                                <b-input-group prepend="kg">
+                            </div>
+                        </b-input-group-append>
+                    </b-input-group>
 
 
-                <b-input-group prepend="Gewicht">
-                    <b-form-input v-if="weightSelected == 'kg'" v-model.number="weight" type="number" min=0 step="any" size="lg"></b-form-input>
-
-                    <b-input-group-append>
-                        <div>
-                            <b-input-group prepend="kg">
-                        </div>
-                    </b-input-group-append>
-                </b-input-group>
+                    <b-input-group prepend="Tätigkeit">
 
 
-                <b-input-group prepend="Tätigkeit">
-
-
-                    <b-input-group-append>
-                        <div>
-                            <b-form-select v-model="activityselected" :options="activityOptions" size="lg">
-                                <div>Selected: <strong>{{ activityselected }}</strong></div>
-                        </div>
-                    </b-input-group-append>
-                </b-input-group>
+                        <b-input-group-append>
+                            <div>
+                                <b-form-select v-model="activityselected" :options="activityOptions" size="lg">
+                                    <div>Selected: <strong>{{ activityselected }}</strong></div>
+                            </div>
+                        </b-input-group-append>
+                    </b-input-group>
 
 
 
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- results row -->
-    <div id="row-result2" class="row gradient-green">
-        <div class="col">
+        <!-- results row -->
+        <div id="row-result2" class="row gradient-green">
+            <div class="col">
                 <span>
                     Dein BMI:
                 </span><br>
 
-        </div>
-        <div class="col">
+            </div>
+            <div class="col">
                 <span>
                     {{ bmi }}
                 </span><br>
 
-        </div>
-        <span>
+            </div>
+            <span>
             {{ weightGroup }}
                 <div id="bmiColor2" style="color: white"></div>
  </span>
-    </div>
-    <div id="row-result2-2">
-        <div class="col">
+        </div>
+        <div id="row-result2-2">
+            <div class="col">
                 <span class="title">
                     Idealgewicht: {{idealWeighMin}}kg - {{idealWeighMax}}kg
                 </span><br>
 
-        </div>
-        <div class="col">
+            </div>
+            <div class="col">
                 <span class="title">
                     Energiebedarf pro Tag: {{getMifflin}}kcal
                 </span><br>
 
+            </div>
+
+            </span>
+        </div>
+    </div>
+    <br>
+
+    <!-- app window -->
+    <div id="app" class="animated fadeInUp" v-cloak>
+        <div class="container">
+
+            <!-- title row -->
+
+
+
+            <br>
+
+
+
+
+
+            <!-- input row -->
+            <div id="row-input" class="row">
+
+
+                <br>
+                <br>
+                <br>
+
+
+
+                <div class="col">
+
+
+                    <h3>Waist-to-Hip Ratio</h3>
+                    <br>
+                    <b-input-group prepend="Geschlecht">
+
+
+                        <input
+                                type="radio" v-model="gender" name="emotion"
+                                id="male" value="male" onclick="changeValue('male')
+                                " class="input-hidden" />
+                        <label for="male">
+                            <img id="male_img"
+                                 src="https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_1.png">
+                        </label>
+
+                        <input
+                                type="radio" v-model="gender" name="emotion"
+                                id="female"  value="female" class="input-hidden" onclick="changeValue('female')" />
+                        <label for="female">
+                            <img id="female_img"
+                                 src="https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_1.png">
+                        </label>
+
+                    </b-input-group>
+                    <b-input-group prepend="Bauch">
+                        <b-form-input v-if="waistSelected !== 'us'" v-model.number="waist" type="number" min=0 step="any" size="lg"></b-form-input>
+
+                        <b-input-group-append>
+                            <div>
+                                <b-input-group prepend="cm">
+
+                            </div>
+                        </b-input-group-append>
+                    </b-input-group>
+
+
+                    </b-input-group>
+                    <b-input-group prepend="Hüfte">
+                        <b-form-input v-if="hipSelected !== 'us'" v-model.number="hip" type="number" min=0 step="any" size="lg"></b-form-input>
+
+                        <b-input-group-append>
+                            <div>
+                                <b-input-group prepend="cm">
+
+                            </div>
+                        </b-input-group-append>
+                    </b-input-group>
+
+
+
+
+
+
+
+
+
+                    </form>
+                </div>
+            </div>
         </div>
 
-        </span>
+        <!-- results row -->
+        <div id="row-result" class="row gradient-green">
+            <div class="col">
+                <span>
+                    Deine WHR:
+                </span><br>
+
+            </div>
+            <div class="col">
+                <span >
+                    {{ whr }}
+                </span><br>
+
+            </div>
+            <span >
+            {{ weightGroup }}
+                <div id='bmiColor' style="color: white"></div>
+ </span>
+        </div>
+        <div id="row-result-2">
+            <div class="col">
+                <span class="title">
+                    Du bist ein
+                </span><br>
+
+            </div>
+            <div class="col">
+                <span class="title">
+                    Idealer Bauchumfang: {{idealWaist}}cm
+                </span><br>
+
+            </div>
+
+            </span>
+        </div>
     </div>
+</div>
 </div>
 
 <!-- javascript -->
@@ -555,6 +1055,54 @@
             }
         }
     });
+    new Vue({
+        el: '#app',
+        data: {
+            hip: 90,
+            weight_lb: 0,
+            waist: 60,
+            gender:'male',
+            waistSelected: 'cm',
+            waistOptions: [
+                { value: 'cm', text: 'cm' },
+
+            ],
+            hipSelected: 'cm',
+            hipOptions: [
+                { value: 'cm', text: 'cm' },
+
+            ],
+
+        },
+        computed: {
+            whr() {
+                return round(calculateWHR(this.waist, this.hip), 2);
+            },
+            idealWaist() {
+                return round(calculateIdealWaist(this.hip, this.gender),2);
+            },
+            weightGroup() {
+                return getWeightGroup(this.whr, this.gender);
+            },
+        },
+        watch: {
+            hipSelected(val) {
+
+            },
+            waistSelected(val) {
+                // if (val == 'cm') {
+                //     this.waist = round(imperialtocm(this.height_ft, this.height_inch), 0);
+                // }
+            }
+        },
+        methods: {
+            updateImperial(cm) {
+                this.height_ft = cmToImperial(cm).feet;
+                this.height_inch = cmToImperial(cm).inches;
+            }
+        }
+    });
+
     function round(value, precision) {
         return Number(Math.round(value+'e'+precision)+'e-'+precision);
     }
@@ -581,7 +1129,6 @@
             feet: feet,
             inches: inches
         }
-
     }
 
     // BMI functions
@@ -816,29 +1363,47 @@
     }
 
 
-
 </script>
 <script>
-    function changeValue(params) {
-       alert(params);
-        if (params === 'male') {
+    function changeValue(params){
+
+        if(params === 'male'){
 
             this.gender = 'male';
 
 
+            $('#male_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_selected.png');
+            $('#female_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_1.png');
+        }
+        else if(params === 'male2'){
+
+
+            this.gender2 = 'male';
+
+
             $('#male_img2').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_selected.png');
             $('#female_img2').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_1.png');
-        } else {
+        }
+        else if(params === 'female'){
 
 
             this.gender = 'female';
 
 
+            $('#female_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_selected.png');
+            $('#male_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_1.png');
+        }
+        else if(params === 'male2'){
+
+
+            this.gender2 = 'female2';
+
+
             $('#female_img2').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_selected.png');
             $('#male_img2').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_1.png');
         }
-    }
 
+    }
 
 </script>
 
