@@ -113,25 +113,25 @@
         #app {
             position: relative;
             z-index: 99;
-            max-width: 400px;
+            max-width: 350px;
             box-shadow: 0 3px 6px rgba(0,0,0,0.13), 0 3px 6px rgba(0,0,0,0.13);
-            border-radius: 8px;
+            border-radius: 1px;
         }
         #app > .container {
-            padding-top: 50px;
+            padding-top: 25px;
             padding-bottom: 0px;
             background-color: rgba(255,255,255,0.9);
             border-radius: 8px 8px 0px 0px;
         }
         #app .row {
-            padding-left: 25px;
-            padding-right: 25px;
+            padding-left: 5px;
+            padding-right: 5px;
             text-align: center;
         }
 
         /* title row */
         #row-title h1 {
-            font-weight: 300;
+            font-weight: 100;
         }
         #row-title hr {
             border: 1px solid #0000FF;
@@ -155,16 +155,16 @@
             border-left: 1px solid rgba(206,212,218,0.3);
         }
         #row-input .input-group-prepend .input-group-text {
-            width: 100px;
+            width: 70px;
             background-color: white;
             border-radius: 999px 0 0 999px;
-            padding-left: 23px;
+            padding-left: 1px;
             border: none;
-            font-size: 13px;
+            font-size: 14px;
         }
         #row-input select {
             border-radius: 0 999px 999px 0;
-            width: 100px;
+            width: 25px;
             border: none;
         }
 
@@ -254,7 +254,7 @@
             #app2 {
                 position: relative;
                 z-index: 99;
-                max-width: 400px;
+                max-width: 350px;
                 box-shadow: 0 3px 6px rgba(0,0,0,0.13), 0 3px 6px rgba(0,0,0,0.13);
                 border-radius: 8px;
             }
@@ -265,8 +265,8 @@
                 border-radius: 8px 8px 0px 0px;
             }
             #app2 .row {
-                padding-left: 25px;
-                padding-right: 25px;
+                padding-left: 5px;
+                padding-right: 5px;
                 text-align: center;
             }
 
@@ -296,16 +296,16 @@
                 border-left: 1px solid rgba(206,212,218,0.3);
             }
             #row-input2 .input-group-prepend .input-group-text {
-                width: 100px;
+                width: 70px;
                 background-color: white;
                 border-radius: 999px 0 0 999px;
-                padding-left: 23px;
+                padding-left: 1px;
                 border: none;
                 font-size: 13px;
             }
             #row-input2 select {
                 border-radius: 0 999px 999px 0;
-                width: 100px;
+                width: 5px;
                 border: none;
             }
 
@@ -558,10 +558,10 @@
             border-left: 1px solid rgba(206,212,218,0.3);
         }
         #row-input2 .input-group-prepend .input-group-text {
-            width: 100px;
+            width: 70px;
             background-color: white;
             border-radius: 999px 0 0 999px;
-            padding-left: 23px;
+            padding-left: 1px;
             border: none;
             font-size: 13px;
         }
@@ -821,18 +821,18 @@
     <!-- results row -->
     <div id="row-result2" class="row gradient-green">
         <div class="col">
-                <span class="title">
+                <span>
                     Dein BMI:
                 </span><br>
 
         </div>
         <div class="col">
-                <span class="title">
+                <span>
                     {{ bmi }}
                 </span><br>
 
         </div>
-        <span class="title">
+        <span>
             {{ weightGroup }}
                 <div id="bmiColor2" style="color: white"></div>
  </span>
@@ -945,18 +945,18 @@
         <!-- results row -->
         <div id="row-result" class="row gradient-green">
             <div class="col">
-                <span class="title">
+                <span>
                     Deine WHR:
                 </span><br>
 
             </div>
             <div class="col">
-                <span class="title">
+                <span >
                     {{ whr }}
                 </span><br>
 
             </div>
-            <span class="title">
+            <span >
             {{ weightGroup }}
                 <div id='bmiColor' style="color: white"></div>
  </span>
