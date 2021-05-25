@@ -52,12 +52,12 @@
         /* general classes */
 
         .input-hidden {
-            position: absolute;
+            position: relative;
             left: -9999px;
         }
 
         input[type=radio]:checked + label>img {
-            border: 1px solid #fff;
+
             /*box-shadow: 0 0 3px 3px #090;*/
         }
 
@@ -305,7 +305,7 @@
             }
             #row-input2 select {
                 border-radius: 0 999px 999px 0;
-                width: 5px;
+                width: 100px;
                 border: none;
             }
 
@@ -398,7 +398,11 @@
         }
 
 
-
+        .centered {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         .animated {
             -webkit-animation-duration: 1.3s;
@@ -448,11 +452,11 @@
 
         .input-hidden {
             position: absolute;
-            left: -9999px;
+
         }
 
         input[type=radio]:checked + label>img {
-            border: 1px solid #fff;
+
             /*box-shadow: 0 0 3px 3px #090;*/
         }
 
@@ -730,13 +734,14 @@
 
                     <h3>BMI- & Kalorienrechner</h3>
                     <br>
-                    <b-input-group prepend="Geschlecht">
+                    <b-input-group prepend="Geschlecht" width="50%">
+
 
 
                         <input
-                                type="radio" v-model="gender2" name="emotion"
-                                id="male2" value="male" onclick="changeValue('male2')
-                                " class="input-hidden" />
+                            type="radio" v-model="gender2" name="emotion"
+                            id="male2" value="male" onclick="changeValue('male2')"
+                            class="input-hidden"/>
                         <label for="male2">
                             <img id="male_img2"
                                  src="https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_1.png">
@@ -750,26 +755,32 @@
                                  src="https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_1.png">
                         </label>
 
-                        <b-input-group prepend="Alter">
-                            <b-form-input  v-model.number="age" type="number" min=0 step="any" size="lg"></b-form-input>
-                            <b-input-group-append>
-                                <div>
-                                    <b-input-group prepend="Jahre">
-                                </div>
-                            </b-input-group-append>
-
-                        </b-input-group>
-
 
                     </b-input-group>
+
+
+                    <b-input-group prepend="Alter" class="mt-3">
+
+                        <b-form-input  v-model.number="age" type="number" min=0 step="any" size="lg"></b-form-input>
+                        <b-input-group-append>
+
+                            <b-input-group prepend=" Jahre">
+
+                        </b-input-group-append>
+
+                    </b-input-group>
+
+
+
+
                     <b-input-group prepend="Größe">
-                        <b-form-input v-iAf="heightSelected !== 'us'" v-model.number="height" type="number" min=0 step="any" size="lg"></b-form-input>
+                        <b-form-input v-iAf="heightSelected !== 'us'"  v-model.number="height" type="number" min=0 step="any" size="lg" ></b-form-input>
 
                         <b-input-group-append>
-                            <div>
-                                <b-input-group prepend="cm">
 
-                            </div>
+                            <b-input-group prepend=" cm">
+
+
                         </b-input-group-append>
                     </b-input-group>
 
@@ -779,22 +790,22 @@
                         <b-form-input v-if="weightSelected == 'kg'" v-model.number="weight" type="number" min=0 step="any" size="lg"></b-form-input>
 
                         <b-input-group-append>
-                            <div>
-                                <b-input-group prepend="kg">
-                            </div>
+
+                            <b-input-group prepend=" kg">
+
                         </b-input-group-append>
                     </b-input-group>
 
 
-                    <b-input-group prepend="Tätigkeit">
+                    <b-input-group style="width: 80%"  prepend="Tätigkeit">
 
 
-                        <b-input-group-append>
-                            <div>
-                                <b-form-select v-model="activityselected" :options="activityOptions" size="lg">
-                                    <div>Selected: <strong>{{ activityselected }}</strong></div>
-                            </div>
-                        </b-input-group-append>
+
+
+                        <b-form-select v-model="activityselected" :options="activityOptions"  size="lg">
+                            <div>Selected: <strong>{{ activityselected }}</strong></div>
+
+
                     </b-input-group>
 
 
@@ -826,7 +837,7 @@
         <div id="row-result2-2">
             <div class="col">
                 <span class="title">
-                    Idealgewicht: {{idealWeighMin}}kg - {{idealWeighMax}}kg
+                    Normalbereich: {{idealWeighMin}}kg - {{idealWeighMax}}kg
                 </span><br>
 
             </div>
@@ -896,10 +907,10 @@
                         <b-form-input v-if="waistSelected !== 'us'" v-model.number="waist" type="number" min=0 step="any" size="lg"></b-form-input>
 
                         <b-input-group-append>
-                            <div>
-                                <b-input-group prepend="cm">
 
-                            </div>
+                            <b-input-group prepend="cm">
+
+
                         </b-input-group-append>
                     </b-input-group>
 
@@ -909,10 +920,10 @@
                         <b-form-input v-if="hipSelected !== 'us'" v-model.number="hip" type="number" min=0 step="any" size="lg"></b-form-input>
 
                         <b-input-group-append>
-                            <div>
-                                <b-input-group prepend="cm">
 
-                            </div>
+                            <b-input-group prepend="cm">
+
+
                         </b-input-group-append>
                     </b-input-group>
 
@@ -951,13 +962,13 @@
         <div id="row-result-2">
             <div class="col">
                 <span class="title">
-                    Du bist ein
+                    Du bist ein {{typeOfWaist}}
                 </span><br>
 
             </div>
             <div class="col">
                 <span class="title">
-                    Idealer Bauchumfang: {{idealWaist}}cm
+                    Gesunder Bauchumfang unter {{idealWaist}} cm
                 </span><br>
 
             </div>
@@ -1080,6 +1091,9 @@
             },
             idealWaist() {
                 return round(calculateIdealWaist(this.hip, this.gender),2);
+            },
+            typeOfWaist() {
+                return calculateTypeOfWaist(calculateWHR(this.waist, this.hip),this.gender);
             },
             weightGroup() {
                 return getWeightGroup(this.whr, this.gender);
@@ -1292,7 +1306,7 @@
         } else if (tempBmi >= 19 && tempBmi < 24) {
             // document.getElementById("bmiColor").style.color = "green";
             $('#row-result2').removeClass('gradient-orange').addClass('gradient-green');
-            return "Gesundes Gewicht";
+            return "Normalgewicht";
         } else if (tempBmi >= 24 && tempBmi < 30) {
             //document.getElementById("bmiColor").style.color = "yellow";
             $('#row-result2').removeClass('gradient-green').addClass('gradient-orange');
@@ -1326,16 +1340,37 @@
     }
 
 
+    function calculateTypeOfWaist(whr, gender) {
+        var result= "Birnentyp";
+        if(whr > 0){
 
+            if(gender === 'female'){
+                if(whr >= 0.85)
+                {
+                    result = "Apfeltyp";
+                }else{
+                    result= "Birnentyp";
+                }
+            }else{
+                if(whr >= 1)
+                {
+                    result = "Apfeltyp";
+                }else{
+                    result= "Birnentyp";
+                }
+            }
+        }
+        return result;
+    }
 
     function calculateIdealWaist(hip, gender) {
         var result= 0;
         if(hip > 0){
 
-            if(gender === 'male'){
+            if(gender === 'female'){
                 result = hip * 0.8;
             }else{
-                result = hip * 0.9;
+                result = hip * 0.85;
             }
         }
         return result;
@@ -1393,7 +1428,7 @@
             $('#female_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/female_selected.png');
             $('#male_img').attr('src', 'https://raw.githubusercontent.com/AminoKing/Teddy/main/images/male_1.png');
         }
-        else if(params === 'male2'){
+        else if(params === 'female2'){
 
 
             this.gender2 = 'female2';
